@@ -789,20 +789,6 @@ By the end of Week 1, you should be able to:
 
 ---
 
-## PART 8: NEXT STEPS (Preview of Week 2)
-
-Week 2 will cover:
-- 📝 All data types in detail (int, double, String, bool, List, Map, Set)
-- 🔄 Variable declaration patterns (final, const, late)
-- 🛡️ Null Safety (one of Dart's most important features)
-- 🎯 Type inference and type checking
-
-**To prepare:**
-- Practice the exercises above multiple times
-- Experiment with different variable values
-- Try modifying programs and running them again
-
----
 
 ## RESOURCES FOR WEEK 1
 
@@ -853,26 +839,6 @@ Week 2 will cover:
 **A:** No. Dart is designed to be beginner-friendly. This curriculum assumes no prior programming experience.
 
 ---
-
-## ADDITIONAL NOTES FOR INSTRUCTORS (If using this for students)
-
-### Classroom Use:
-1. **Lab Session:** Allocate 2-3 hours for hands-on installation and first program
-2. **Demonstration:** Show installation live; many students struggle with PATH configuration
-3. **Troubleshooting:** Have IT support or TAs available for installation issues
-4. **Assessment:** Have students submit screenshots of successful `dart --version` and first program output
-
-### Common Student Issues:
-- PATH not set after installation → restart terminal
-- IDE doesn't show Dart extension after install → restart VS Code
-- DartPad is easier for initial learning but limits later modules
-
-### Time Breakdown for Week 1:
-- **Day 1-2:** Installation & troubleshooting (4 hours)
-- **Day 3:** Understanding Dart (2 hours)
-- **Day 4-5:** First programs & practice (3 hours)
-- **Day 6:** Review & troubleshooting (2 hours)
-- **Day 7:** Assessment & preview of Week 2 (2 hours)
 
 ---
 
