@@ -3,7 +3,6 @@
 **Course:** Fundamentals of Mobile Programming  
 **Topic:** Building Your First Interactive Flutter App  
 **Level:** Beginner  
-**Estimated Time:** 4-6 hours
 
 ---
 
@@ -103,11 +102,6 @@ Think of it like a whiteboard:
 ### 📋 Module 1: Project Setup (15 minutes)
 
 #### Step 1.1: Create a New Flutter Project
-
-```bash
-flutter create todo_list_app
-cd todo_list_app
-```
 
 #### Step 1.2: Open `lib/main.dart` and Clear Everything
 
@@ -887,13 +881,6 @@ ListView.builder(
 - [State Management](https://docs.flutter.dev/data-and-backend/state-mgmt/intro)
 - [Layout Widgets](https://docs.flutter.dev/ui/layout)
 
-#### Recommended Next Topics
-1. **Navigation:** Moving between screens
-2. **Forms:** Building more complex input forms
-3. **Async/Await:** Working with APIs and databases
-4. **State Management:** Provider, Riverpod, or Bloc
-5. **Firebase Integration:** Cloud database and authentication
-
 ---
 
 ## Summary: What You Built
@@ -1003,7 +990,7 @@ This knowledge forms the foundation for more complex Flutter apps. Keep practici
 
 ---
 
-**Created by:** Your IT Instructor  
+**Created by:** Romark Cacho 
 **Date:** February 11, 2026  
 **Course:** Fundamentals of Mobile Programming  
 **Version:** 1.0
@@ -1045,5 +1032,3 @@ For reference, here's how your `main.dart` file should be organized:
 Don't try to memorize this structure—understand what each part does and why it's there!
 
 ---
-
-**End of Tutorial**
