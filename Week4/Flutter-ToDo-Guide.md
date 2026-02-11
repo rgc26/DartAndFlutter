@@ -21,7 +21,7 @@
 
 ## Introduction
 
-Welcome to your first interactive Flutter app! In this tutorial, you'll build a **Simple To-Do List** application from scratch. Don't worry—we won't dump all the code on you at once. Instead, we'll build it step by step, explaining every concept along the way.
+You'll build a **Simple To-Do List** application from scratch. Don't worry—we won't dump all the code on you at once. Instead, we'll build it step by step, explaining every concept along the way.
 
 By the end of this guide, you'll understand:
 - How Flutter widgets work
