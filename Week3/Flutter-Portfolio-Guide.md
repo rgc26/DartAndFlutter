@@ -1588,6 +1588,3 @@ For your reference, here's the complete file structure:
 
 **Remember:** Structure is learned through building, not memorizing!
 
----
-
-**End of Portfolio App Tutorial**
