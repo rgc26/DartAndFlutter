@@ -3,8 +3,6 @@
 **Course:** Fundamentals of Mobile Programming  
 **Topic:** Building a Professional Portfolio App with Navigation  
 **Level:** Beginner  
-**Estimated Time:** 5-7 hours  
-**Prerequisites:** Basic Flutter knowledge (completed To-Do List tutorial recommended)
 
 ---
 
@@ -23,14 +21,7 @@
 
 ## Introduction
 
-Welcome to your second Flutter app! In this tutorial, you'll build a **Professional Portfolio App** that showcases your skills, projects, and contact information. This app introduces navigation concepts that are essential for multi-page applications.
-
-**What makes this different from the To-Do app:**
-- Multi-page navigation using Drawer
-- External packages (Google Fonts)
-- Asset management (images)
-- ScrollController for advanced scrolling
-- Professional UI design patterns
+You'll build a **Professional Portfolio App** that showcases your skills, projects, and contact information. This app introduces navigation concepts that are essential for multi-page applications.
 
 By the end of this guide, you'll understand:
 - How to implement Navigation Drawer (sidebar menu)
@@ -61,20 +52,6 @@ By the end of this guide, you'll understand:
 
 ---
 
-## Prerequisites
-
-Before starting, make sure you have:
-
-- ✅ Completed the To-Do List tutorial (or equivalent Flutter knowledge)
-- ✅ Flutter SDK installed and working
-- ✅ Android Studio or VS Code with Flutter extensions
-- ✅ Understanding of StatefulWidget and setState()
-- ✅ Basic understanding of Flutter layouts (Column, Row, Padding)
-
-**Quick check:** Can you create a StatefulWidget and explain what setState() does?
-
----
-
 ## Understanding New Concepts
 
 ### 1. What is a Navigation Drawer?
@@ -90,7 +67,7 @@ A **Navigation Drawer** (also called sidebar or hamburger menu) is a panel that 
 **Visual example:**
 ```
 ┌─────────────────────────┐
-│ ☰ Portfolio        │ ← App Bar with menu icon
+│ ☰ Portfolio            │ ← App Bar with menu icon
 ├─────────────────────────┤
 │                         │
 │   Your content here     │
@@ -173,11 +150,6 @@ A controller that manages scrolling behavior of scrollable widgets[3].
 ### 📋 Module 1: Project Setup (20 minutes)
 
 #### Step 1.1: Create a New Flutter Project
-
-```bash
-flutter create portfolio_app
-cd portfolio_app
-```
 
 #### Step 1.2: Add Google Fonts Package
 
@@ -1481,12 +1453,6 @@ Image.asset('lib/assets/images/profile.jpg')
 - [Google Fonts Package](https://pub.dev/packages/google_fonts)[2]
 - [Asset Management](https://docs.flutter.dev/ui/assets-and-images)
 
-#### Recommended Next Topics
-1. **Named Routes:** More advanced navigation
-2. **Responsive Design:** Adapt to different screens
-3. **Hero Animations:** Smooth transitions between pages
-4. **URL Launcher:** Open emails, websites, phone
-5. **Local Storage:** Save user preferences
 
 ---
 
@@ -1536,28 +1502,6 @@ SimplePortfolioApp (StatelessWidget)
 
 ---
 
-## Assessment Questions
-
-Test your understanding:
-
-### Conceptual Questions
-1. What is the purpose of the Builder widget in the AppBar leading property?
-2. Why do we use `late` for ScrollController initialization?
-3. What's the difference between hot reload and hot restart when adding assets?
-4. Why do we call `Navigator.pop(context)` before changing the selectedPage?
-
-### Practical Questions
-5. How would you add a new menu item "Education" to the drawer?
-6. How would you change the drawer header color to purple?
-7. What code would you write to use the Montserrat font instead of Poppins?
-8. How would you add a second image to your app?
-
-### Challenge Questions
-9. How would you make the profile picture clickable to open a larger version?
-10. How would you add a subtle animation when switching between pages?
-
----
-
 ## Troubleshooting Checklist
 
 Before asking for help, check:
@@ -1586,9 +1530,6 @@ Excellent work! 🎉 You've built a professional portfolio app with navigation. 
 - Multi-page state management
 - Professional UI patterns
 
-**What's different from the To-Do app:**
-- **To-Do:** Single page, list management, user input
-- **Portfolio:** Multi-page, navigation, external resources, professional design
 
 You're now ready to build more complex apps with multiple pages and professional styling!
 
@@ -1604,7 +1545,7 @@ You're now ready to build more complex apps with multiple pages and professional
 
 ---
 
-**Created by:** Your IT Instructor  
+**Created by:** Romark Cacho
 **Date:** February 11, 2026  
 **Course:** Fundamentals of Mobile Programming  
 **Version:** 1.0
