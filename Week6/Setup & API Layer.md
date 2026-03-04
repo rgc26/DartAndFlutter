@@ -214,7 +214,7 @@ class WeatherModel {
 | `json['main']['humidity']` | Humidity lives in the same `main` block as temperature |
 
 > 🧪 **Test** Temporarily add to the bottom of the file:
->```dart
+```dart
 void main() {
   final w = WeatherModel(
     cityName: 'Manila',
