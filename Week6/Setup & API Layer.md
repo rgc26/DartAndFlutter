@@ -1,0 +1,414 @@
+***
+
+# Flutter Weather App — Phase 1: Setup \& API Layer
+
+
+***
+
+## 🗺️ Overview of What We're Building
+
+A **basic weather app** that:
+
+- Takes a city name as input
+- Calls the **OpenWeatherMap API**
+- Displays temperature, humidity, and weather description
+
+***
+
+## 📁 File Structure
+
+Before writing any code, create these files in `zapp.run` using the `+` button:
+
+```
+lib/
+├── main.dart
+├── models/
+│   └── weather_model.dart
+└── services/
+    └── weather_service.dart
+```
+
+> Each file has **one job only** — this is called **Separation of Concerns**. Your model holds data, your service fetches data, your screen shows it.
+
+***
+
+## Get Your API Key
+
+Before writing any Flutter code, you need a free API key from OpenWeatherMap.
+
+**Steps:**
+
+1. Go to [openweathermap.org](https://openweathermap.org)
+2. Click **Sign Up** → create a free account
+3. Go to **API Keys** tab in your dashboard
+4. Copy your key — it looks like: `a1b2c3d4e5f6...`
+
+> ⚠️ The free key may take **10–15 minutes** to activate after signup.
+
+**Test your key in the browser first:**
+
+```
+https://api.openweathermap.org/data/2.5/weather?q=Manila&appid=YOUR_KEY&units=metric
+```
+
+You should see a **JSON response** with weather data. This confirms your key works before touching Flutter at all.
+
+***
+
+## Understand the API Response (JSON)
+
+Before writing the model, study what the API actually returns:
+
+```json
+{
+  "name": "Manila",
+  "main": {
+    "temp": 31.5,
+    "humidity": 78
+  },
+  "weather": [
+    { "description": "scattered clouds" }
+  ]
+}
+```
+
+**What each field means:**
+
+
+| JSON Key | What It Holds |
+| :-- | :-- |
+| `name` | City name |
+| `main.temp` | Temperature in °C (because we add `units=metric`) |
+| `main.humidity` | Humidity percentage |
+| `weather[^0].description` | Short weather text — it's an array, we take index `[^0]` |
+
+> 🧪 **Test this stage:** Open that browser URL. Identify `temp`, `humidity`, and `description` manually — you'll map these exact keys in your model next.
+
+***
+
+## `pubspec.yaml` — Add the Dependency
+
+Open your `pubspec.yaml` and find the `dependencies:` section. Add this **one line**:
+
+```yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^0.13.6      # ← ADD THIS LINE ONLY
+```
+
+**Why `http`?**
+
+- Flutter has no built-in way to make API calls
+- The `http` package gives you `http.get()` to send a request to the weather server
+- `^0.13.6` means "version 0.13.6 or any compatible newer version"
+
+> 🧪 **Test this stage:** After saving `pubspec.yaml` on zapp.run, packages auto-resolve. No red errors in the editor = dependency loaded correctly.
+
+***
+
+## `lib/models/weather_model.dart`
+
+In `zapp.run`, create a new folder `models/` inside `lib/`, then create the file:
+
+```
+lib/models/weather_model.dart
+```
+
+> This file's **only job** is to describe the shape of weather data. It does not fetch anything — that's the service's job.
+
+***
+
+### Line 1: Declare the Class
+
+Type this first:
+
+```dart
+class WeatherModel {
+```
+
+**What this means:**
+
+
+| Word | Meaning |
+| :-- | :-- |
+| `class` | A blueprint — defines what a WeatherModel object looks like |
+| `WeatherModel` | The name (capital first letter is Dart convention) |
+| `{` | Everything inside here belongs to this class |
+
+
+***
+
+### Lines 2–5: Declare the Fields
+
+```dart
+  final String cityName;
+  final double temperature;
+  final String description;
+  final int humidity;
+```
+
+| Word | Meaning |
+| :-- | :-- |
+| `final` | This value will **never change** after being set |
+| `String` | Holds text — used for city name and description |
+| `double` | Holds decimals — temperature can be `31.5`, not just `31` |
+| `int` | Holds whole numbers — humidity is always `78`, never `78.4` |
+
+
+***
+
+### Lines 6–11: Write the Constructor
+
+```dart
+  WeatherModel({
+    required this.cityName,
+    required this.temperature,
+    required this.description,
+    required this.humidity,
+  });
+```
+
+- `{}` makes these **named parameters** — you always know which value is which
+- `required` means every field must be provided — you cannot create a half-empty object
+- `this.cityName` means "assign the incoming value directly to the `cityName` field"
+
+***
+
+### Line 12: Open the `factory` Constructor
+
+```dart
+  factory WeatherModel.fromJson(Map<String, dynamic> json) {
+```
+
+| Word | Meaning |
+| :-- | :-- |
+| `factory` | A special constructor that builds an object from something else (JSON) |
+| `WeatherModel.fromJson` | A named constructor — you call it like `WeatherModel.fromJson(data)` |
+| `Map<String, dynamic>` | The Dart type for decoded JSON — keys are `String`, values can be anything |
+| `json` | The parameter name — the raw decoded data passed in |
+
+
+***
+
+### Lines 13–18: Map JSON Keys to Your Fields
+
+```dart
+    return WeatherModel(
+      cityName:    json['name'],
+      temperature: json['main']['temp'].toDouble(),
+      description: json['weather'][^0]['description'],
+      humidity:    json['main']['humidity'],
+    );
+  }
+}
+```
+
+| Line | Why |
+| :-- | :-- |
+| `json['name']` | OpenWeatherMap puts city name at the top level of the response |
+| `json['main']['temp']` | Temperature is **nested** inside a `main` object |
+| `.toDouble()` | API sometimes sends `31` (int) — this forces it to always be `31.0` |
+| `json['weather'][^0]['description']` | `weather` is a **list** — `[^0]` grabs the first item |
+| `json['main']['humidity']` | Humidity lives in the same `main` block as temperature |
+
+> 🧪 **Test this stage:** Temporarily add to the bottom of the file:
+> ```dart > void main() { >   final w = WeatherModel( >     cityName: 'Manila', >     temperature: 31.5, >     description: 'clear sky', >     humidity: 78, >   ); >   print(w.cityName);     // Manila >   print(w.temperature);  // 31.5 > } > ```
+> Run it. See `Manila` and `31.5` printed = model is working. **Delete this `main()` after testing.**
+
+***
+
+## `lib/services/weather_service.dart`
+
+Create the file:
+
+```
+lib/services/weather_service.dart
+```
+
+> This file is responsible for **only one thing** — fetching weather data from the API.
+
+***
+
+### Line 1: Import the `http` Package
+
+```dart
+import 'package:http/http.dart' as http;
+```
+
+
+| Word | Meaning |
+| :-- | :-- |
+| `import` | Bring in an external tool |
+| `'package:http/http.dart'` | The http package you added in `pubspec.yaml` |
+| `as http` | Give it a nickname so you call it as `http.get(...)` later |
+
+> 🧪 **Test:** Save the file. No red underlines = import is working.
+
+***
+
+### Line 2: Import `dart:convert`
+
+```dart
+import 'dart:convert';
+```
+
+**Why?**
+
+- The API returns raw **text** (a JSON string)
+- `dart:convert` gives you `jsonDecode()` to turn that text into a **Dart Map** you can read like `data['main']['temp']`
+
+***
+
+### Line 3: Import Your Model
+
+```dart
+import '../models/weather_model.dart';
+```
+
+**Why?**
+
+- Your service needs to return a `WeatherModel` object
+- `../` means "go one folder up from `services/`" then into `models/`
+- Without this, Dart has no idea what `WeatherModel` is
+
+***
+
+### Lines 4–6: Define the Class and Constants
+
+```dart
+class WeatherService {
+  final String apiKey = 'YOUR_API_KEY_HERE';
+  final String baseUrl = 'https://api.openweathermap.org/data/2.5/weather';
+```
+
+| Word | Meaning |
+| :-- | :-- |
+| `final` | These values will **never change** at runtime |
+| `String` | Both are text values |
+| `apiKey` | Your OpenWeatherMap key — replace the placeholder |
+| `baseUrl` | The API endpoint — city name is added to this at runtime |
+
+> ⚠️ Replace `YOUR_API_KEY_HERE` with the actual key you copied earlier.
+
+***
+
+### Line 7: Declare the Async Method
+
+```dart
+  Future<WeatherModel> fetchWeather(String city) async {
+```
+
+| Part | Meaning |
+| :-- | :-- |
+| `Future<WeatherModel>` | This method **promises** to return a `WeatherModel` — not instantly, eventually |
+| `fetchWeather` | The method name |
+| `String city` | Accepts one input — the city name like `'Manila'` |
+| `async` | Required whenever you use `await` inside the method |
+
+
+***
+
+### Lines 8–10: Build the Request URL
+
+```dart
+    final url = Uri.parse(
+      '$baseUrl?q=$city&appid=$apiKey&units=metric',
+    );
+```
+
+**Why?**
+
+- `$baseUrl`, `$city`, `$apiKey` = **string interpolation** — Dart inserts variable values into the string
+- `?q=$city` → `q` is OpenWeatherMap's parameter name for city
+- `&appid=$apiKey` → attaches your key to authenticate the request
+- `&units=metric` → tells the API to return **Celsius**, not Kelvin
+- `Uri.parse()` = converts the plain text URL into a URI object that `http.get()` understands
+
+***
+
+### Line 11: Make the HTTP Request
+
+```dart
+    final response = await http.get(url);
+```
+
+**Why?**
+
+- `http.get(url)` sends the GET request to OpenWeatherMap's server
+- `await` **pauses here** until the server replies — without it, the code moves on before data arrives
+- `response` stores everything the server sends back — status code + body text
+
+***
+
+### Lines 12–14: Check if it Succeeded
+
+```dart
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      return WeatherModel.fromJson(data);
+```
+
+**Line by line:**
+
+
+| Line | Why |
+| :-- | :-- |
+| `statusCode == 200` | HTTP 200 = success — like a green light from the server |
+| `response.body` | The raw JSON **text** string the server sent back |
+| `jsonDecode(...)` | Converts that text into a Dart `Map` you can work with |
+| `WeatherModel.fromJson(data)` | Uses your model's factory to create the final object |
+
+
+***
+
+### Lines 15–17: Handle Errors
+
+```dart
+    } else {
+      throw Exception('Failed: ${response.statusCode}');
+    }
+  }
+}
+```
+
+**Why?**
+
+- `401` = bad API key, `404` = city not found — you need to know which one failed
+- `throw Exception(...)` stops the method and sends the error to whoever called it
+- Including `statusCode` in the message makes debugging much faster
+
+***
+
+## 🧪 Full API Layer Test
+
+In `main.dart`, paste this temporarily:
+
+```dart
+import 'services/weather_service.dart';
+
+void main() async {
+  final service = WeatherService();
+
+  try {
+    final weather = await service.fetchWeather('Manila');
+    print('City: ${weather.cityName}');
+    print('Temp: ${weather.temperature}°C');
+    print('Desc: ${weather.description}');
+    print('Humidity: ${weather.humidity}%');
+  } catch (e) {
+    print('Error: $e');
+  }
+}
+```
+
+**Expected output in the zapp.run console:**
+
+```
+City: Manila
+Temp: 31.5°C
+Desc: scattered clouds
+Humidity: 78%
+```
+
+> ✅ If you see real weather data printed — your entire API layer is working correctly. Reply **"next"** and we'll move to building `home_screen.dart` (the UI).
