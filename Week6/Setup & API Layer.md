@@ -180,6 +180,7 @@ class WeatherModel {
 ```dart
   factory WeatherModel.fromJson(Map<String, dynamic> json) {
 ```
+**What this means:**
 
 | Word | Meaning |
 | :-- | :-- |
@@ -212,8 +213,24 @@ class WeatherModel {
 | `json['weather'][^0]['description']` | `weather` is a **list** — `[^0]` grabs the first item |
 | `json['main']['humidity']` | Humidity lives in the same `main` block as temperature |
 
-> 🧪 **Test this stage:** Temporarily add to the bottom of the file:
-> ```dart > void main() { >   final w = WeatherModel( >     cityName: 'Manila', >     temperature: 31.5, >     description: 'clear sky', >     humidity: 78, >   ); >   print(w.cityName);     // Manila >   print(w.temperature);  // 31.5 > } > ```
+> 🧪 **Test** Temporarily add to the bottom of the file:
+>```dart
+>import 'services/weather_service.dart';
+
+>void main() async {
+>  final service = WeatherService();
+
+  try {
+    final weather = await service.fetchWeather('Manila');
+    print('City: ${weather.cityName}');
+    print('Temp: ${weather.temperature}°C');
+    print('Desc: ${weather.description}');
+    print('Humidity: ${weather.humidity}%');
+  } catch (e) {
+    print('Error: $e');
+  }
+}
+```
 > Run it. See `Manila` and `31.5` printed = model is working. **Delete this `main()` after testing.**
 
 ***
@@ -236,6 +253,7 @@ lib/services/weather_service.dart
 import 'package:http/http.dart' as http;
 ```
 
+**What this means:**
 
 | Word | Meaning |
 | :-- | :-- |
@@ -281,6 +299,8 @@ class WeatherService {
   final String apiKey = 'YOUR_API_KEY_HERE';
   final String baseUrl = 'https://api.openweathermap.org/data/2.5/weather';
 ```
+
+**What this means:**
 
 | Word | Meaning |
 | :-- | :-- |
