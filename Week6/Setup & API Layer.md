@@ -395,7 +395,7 @@ class WeatherService {
 
 ***
 
-## 🧪 Full API Layer Test
+## Full API Layer Test
 
 In `main.dart`, paste this temporarily:
 
@@ -426,4 +426,4 @@ Desc: scattered clouds
 Humidity: 78%
 ```
 
-> ✅ If you see real weather data printed — your entire API layer is working correctly. Reply **"next"** and we'll move to building `home_screen.dart` (the UI).
+> If you see real weather data printed — your entire API layer is working correctly.
