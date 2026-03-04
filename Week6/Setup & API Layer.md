@@ -215,20 +215,15 @@ class WeatherModel {
 
 > 🧪 **Test** Temporarily add to the bottom of the file:
 >```dart
->import 'services/weather_service.dart';
-
->void main() async {
->  final service = WeatherService();
-
-  try {
-    final weather = await service.fetchWeather('Manila');
-    print('City: ${weather.cityName}');
-    print('Temp: ${weather.temperature}°C');
-    print('Desc: ${weather.description}');
-    print('Humidity: ${weather.humidity}%');
-  } catch (e) {
-    print('Error: $e');
-  }
+void main() {
+  final w = WeatherModel(
+    cityName: 'Manila',
+    temperature: 31.5,
+    description: 'clear sky',
+    humidity: 78,
+  );
+  print(w.cityName);
+  print(w.temperature);
 }
 ```
 > Run it. See `Manila` and `31.5` printed = model is working. **Delete this `main()` after testing.**
